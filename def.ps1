@@ -1,12 +1,12 @@
 Clear-Host
-Write-Host "
-██╗██╗     ██╗   ██╗██╗   ██╗██████╗ ██╗███████╗ █████╗ ███╗   ██╗
-██║██║     ██║   ██║██║   ██║██╔══██╗██║██╔════╝██╔══██╗████╗  ██║
-██║██║     ██║   ██║██║   ██║██████╔╝██║█████╗  ███████║██╔██╗ ██║
-██║██║     ██║   ██║██║   ██║██╔═══╝ ██║██╔══╝  ██╔══██║██║╚██╗██║
-██║███████╗╚██████╔╝╚██████╔╝██║     ██║███████╗██║  ██║██║ ╚████║
-╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝
-" -ForegroundColor Cyan
+Write-Host @"
+   ██████╗    ██████╗ 
+  ██╔════╝   ██╔════╝ 
+  ██║  ███╗  ██║  ███╗
+  ██║   ██║  ██║   ██║
+  ╚██████╔╝  ╚██████╔╝
+   ╚═════╝    ╚═════╝ 
+"@ -ForegroundColor Red
 
 function Format-EventRow {
     param (
@@ -24,14 +24,14 @@ function Get-DefenderEvents {
         [string]$LogName = 'Microsoft-Windows-Windows Defender/Operational'
     )
 
-    Write-Host "Loading Windows Defender Events...`n" -ForegroundColor Cyan
+    Write-Host "Loading Windows Defender Events...n" -ForegroundColor Cyan
     Write-Host ("{0,-20} {1,-20} {2}" -f "Timestamp", "Type", "Details") -ForegroundColor Gray
     Write-Host ("-" * 70) -ForegroundColor DarkGray
 
     $query = @"
 <QueryList>
-  <Query Id='0' Path='$LogName'>
-    <Select Path='$LogName'>*[System[EventID=$($EventIds -join ' or EventID=')]]</Select>
+  <Query Id="0" Path="$LogName">
+    <Select Path="$LogName">*[System[EventID=$($EventIds -join ' or EventID=')]]</Select>
   </Query>
 </QueryList>
 "@
@@ -97,5 +97,5 @@ function Get-DefenderEvents {
 
 Get-DefenderEvents
 
-Write-Host "`nPress any Key to Exit..." -ForegroundColor Yellow
+Write-Host "nPress any Key to Exit..." -ForegroundColor Yellow
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
